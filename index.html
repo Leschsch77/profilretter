@@ -417,7 +417,7 @@
         <li>Finale Anpassung des Einspruchstexts</li>
         <li>Bis zu 2 Nacheinsprüche inklusive</li>
       </ul>
-      <a href="mailto:ahlersahlersahlers@gmail.com?subject=Geprüfter%20Einspruch%20bestellen" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">Jetzt beauftragen</a>
+      <button onclick="showPayment('single')" class="btn btn-primary" style="display:block; width:100%; text-align:center; margin-top:16px;">Jetzt beauftragen</button>
     </div>
     <div class="price-card">
       <h3>Agentur-Paket</h3>
@@ -427,7 +427,32 @@
         <li>Unbegrenzte Diagnosen & Einsprüche</li>
         <li>Status-Übersicht aller Fälle</li>
       </ul>
-      <a href="mailto:ahlersahlersahlers@gmail.com?subject=Interesse%20Agentur-Paket" class="btn btn-ghost" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">Anfragen</a>
+      <button onclick="showPayment('agency')" class="btn btn-ghost" style="display:block; width:100%; text-align:center; margin-top:16px;">Anfragen</button>
+    </div>
+  </div>
+
+  <div id="paymentModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:100; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:white; border-radius:18px; max-width:480px; width:100%; padding:32px; position:relative; max-height:85vh; overflow-y:auto;">
+      <button onclick="document.getElementById('paymentModal').style.display='none'" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.3rem; cursor:pointer; color:#94a3b8;">✕</button>
+      <h3 id="paymentTitle" style="margin-top:0;">Zahlung</h3>
+      <p id="paymentAmount" style="font-size:1.5rem; font-weight:800; margin:4px 0 20px;"></p>
+
+      <div style="background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:14px;">
+        <strong>Per PayPal</strong>
+        <p style="margin:6px 0 0; color:var(--muted);">An: <code>ahlersahlers@yahoo.de</code></p>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px;">
+        <strong>Per Überweisung</strong>
+        <p style="margin:6px 0 0; color:var(--muted);">
+          Empfänger: Dieter Ahlers<br>
+          IBAN: <code>DE95213900080001054805</code><br>
+          Verwendungszweck: <span id="paymentRef"></span>
+        </p>
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--muted);">Nach der Zahlung kurz Firmenname + Zahlungsart per Mail bestätigen, dann bearbeiten wir Ihren Fall:</p>
+      <a id="paymentConfirmLink" href="#" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none;">Zahlung bestätigen</a>
     </div>
   </div>
 </section>
@@ -556,11 +581,23 @@ ${bizName}`;
         <textarea id="appealLetter" readonly>${letter}</textarea>
         <div class="copy-row">
           <button class="btn btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('appealLetter').value); this.textContent='Kopiert ✓';">In Zwischenablage kopieren</button>
-          <a href="mailto:ahlersahlersahlers@gmail.com?subject=Bitte%20um%20geprüften%20Einspruch%20-%20${encodeURIComponent(bizName)}&body=${encodeURIComponent('Bitte um persönliche Prüfung meines Einspruchs. Diagnose: ' + reason.label)}" class="btn btn-ghost" style="text-decoration:none;">Stattdessen persönlich prüfen lassen (99€)</a>
+          <button class="btn btn-ghost" onclick="showPayment('single', '${bizName.replace(/'/g, "\\'")}')">Stattdessen persönlich prüfen lassen (99€)</button>
         </div>
       </div>
     `;
   }
+
+  window.showPayment = function(type, bizName) {
+    const name = bizName || document.getElementById('bizName')?.value || 'Ihr Unternehmen';
+    const isSingle = type === 'single';
+    document.getElementById('paymentTitle').textContent = isSingle ? 'Geprüft & eingereicht' : 'Agentur-Paket';
+    document.getElementById('paymentAmount').textContent = isSingle ? '99€ einmalig' : '29€ / Monat';
+    document.getElementById('paymentRef').textContent = `Profilretter – ${name}`;
+    const subject = isSingle ? 'Zahlung%20bestätigt%20-%20Geprüfter%20Einspruch' : 'Zahlung%20bestätigt%20-%20Agentur-Paket';
+    const body = encodeURIComponent(`Firmenname: ${name}\nGewählt: ${isSingle ? 'Geprüfter Einspruch (99€)' : 'Agentur-Paket (29€/Monat)'}\nZahlungsart: [PayPal / Überweisung]\n`);
+    document.getElementById('paymentConfirmLink').href = `mailto:ahlersahlersahlers@gmail.com?subject=${subject}&body=${body}`;
+    document.getElementById('paymentModal').style.display = 'flex';
+  };
 
   document.getElementById('nextBtn').addEventListener('click', () => {
     if (currentStep === totalSteps) {
