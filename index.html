@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profilretter — Google-Unternehmensprofil gesperrt? Wir holen es zurück.</title>
+<style>
+  :root {
+    --blue: #1a56db;
+    --blue-dark: #1e3a8a;
+    --green: #16a34a;
+    --red: #dc2626;
+    --bg: #f8fafc;
+    --ink: #0f172a;
+    --muted: #475569;
+    --card: #ffffff;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  a { color: var(--blue); }
+  header {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header .logo { font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; }
+  header .logo span { color: #93c5fd; }
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    color: white;
+    padding: 64px 24px 88px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    max-width: 800px;
+    margin: 0 auto 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .hero p.sub {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    font-size: 1.15rem;
+    color: #dbeafe;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: white;
+    color: var(--blue-dark);
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.05rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  .cta-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+    margin-left: 12px;
+  }
+  section { padding: 64px 24px; max-width: 980px; margin: 0 auto; }
+  .section-title {
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto 48px;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .fact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .fact-card .tag {
+    display: inline-block;
+    background: #fee2e2;
+    color: var(--red);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .fact-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .fact-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .step .num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    margin: 0 auto 16px;
+  }
+  .step h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .step p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+  .pricing {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    position: relative;
+  }
+  .price-card.highlight {
+    border: 2px solid var(--blue);
+    box-shadow: 0 12px 32px rgba(26,86,219,0.12);
+  }
+  .price-card .badge {
+    position: absolute; top: -12px; right: 20px;
+    background: var(--blue); color: white;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .price-card h3 { margin: 0 0 4px; font-size: 1.15rem; }
+  .price-card .price { font-size: 2.1rem; font-weight: 800; margin: 12px 0 4px; }
+  .price-card .price small { font-size: 1rem; font-weight: 500; color: var(--muted); }
+  .price-card ul { padding-left: 20px; color: var(--muted); font-size: 0.92rem; }
+  .price-card ul li { margin-bottom: 6px; }
+
+  /* Tool */
+  .tool-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(15,23,42,0.06);
+  }
+  .progress { display: flex; gap: 8px; margin-bottom: 32px; }
+  .progress .bar { flex: 1; height: 6px; border-radius: 999px; background: var(--border); }
+  .progress .bar.active { background: var(--blue); }
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+  label { display: block; font-weight: 600; margin: 18px 0 8px; font-size: 0.95rem; }
+  label:first-child { margin-top: 0; }
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 90px; }
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  .checkbox-row input { margin-top: 3px; }
+  .nav-row { display: flex; justify-content: space-between; margin-top: 32px; }
+  .btn {
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+
+  .result-box {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+  .result-box h4 { margin-top: 0; }
+  .result-box ul { color: var(--muted); }
+  #appealLetter {
+    width: 100%;
+    min-height: 320px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88rem;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    white-space: pre-wrap;
+  }
+  .copy-row { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .missing-evidence { color: var(--red); font-weight: 600; }
+  .have-evidence { color: var(--green); font-weight: 600; }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+  .disclaimer {
+    max-width: 700px;
+    margin: 16px auto 0;
+    font-size: 0.8rem;
+    color: #94a3b8;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Profil<span>retter</span></div>
+  <nav>
+    <a href="#problem">Problem</a>
+    <a href="#tool">Diagnose starten</a>
+    <a href="#preise">Preise</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Ihr Google-Unternehmensprofil wurde gesperrt?<br>Wir schreiben Ihren Einspruch.</h1>
+  <p class="sub">Seit Ende 2025 sperrt Google auffällig viele Unternehmensprofile — oft ohne klaren Grund. Agenturen verlangen dafür 350–550€. Unser Tool analysiert Ihren Fall in 3 Minuten und erstellt Ihnen einen fertigen, auf Ihren Sperrgrund zugeschnittenen Einspruch.</p>
+  <a href="#tool" class="cta-btn">Kostenlose Diagnose starten →</a>
+  <a href="#preise" class="cta-btn secondary">Preise ansehen</a>
+</div>
+
+<section id="problem">
+  <div class="section-title">Sie sind nicht allein</div>
+  <div class="section-sub">Das Problem ist real, dokumentiert — und die einzige Lösung war bisher teuer.</div>
+  <div class="problem-grid">
+    <div class="fact-card">
+      <span class="tag">Häufung</span>
+      <h3>Sperrwelle seit Ende 2025</h3>
+      <p>Local-SEO-Foren berichten übereinstimmend von einem deutlichen Anstieg an Profil-Sperrungen — viele Betroffene erhalten keine nachvollziehbare Begründung.</p>
+    </div>
+    <div class="fact-card">
+      <span class="tag">Zeitaufwand</span>
+      <h3>Stunden pro Einspruch</h3>
+      <p>Betroffene berichten, einen erheblichen Teil ihres Arbeitstages mit dem Sammeln von Nachweisen und wiederholten, oft abgelehnten Einsprüchen zu verbringen.</p>
+    </div>
+    <div class="fact-card">
+      <span class="tag">Kosten</span>
+      <h3>350–550€ bei Agenturen</h3>
+      <p>Spezialisierte Reinstatement-Agenturen verlangen pauschal mehrere hundert Euro für die manuelle Bearbeitung eines einzigen Falls — Googles eigenes Formular bleibt dabei unterkomplex.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:white; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section-title">So funktioniert's</div>
+  <div class="section-sub">Kein Vertrag, keine Wartezeit auf eine Agentur — Sie starten sofort.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>Fall beschreiben</h3>
+      <p>Sie beantworten ein paar gezielte Fragen zu Ihrer Sperrung — dauert 2–3 Minuten.</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>Diagnose erhalten</h3>
+      <p>Das Tool erkennt den wahrscheinlichen Sperrgrund und zeigt Ihnen genau, welche Nachweise noch fehlen.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>Einspruch verschicken</h3>
+      <p>Sie erhalten einen fertigen, auf Ihren Fall zugeschnittenen Einspruchstext zum Kopieren und direkten Einreichen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tool">
+  <div class="section-title">Kostenlose Sofort-Diagnose</div>
+  <div class="section-sub">Ergebnis in unter 3 Minuten — keine Anmeldung nötig.</div>
+
+  <div class="tool-wrap">
+    <div class="progress">
+      <div class="bar active" data-bar="1"></div>
+      <div class="bar" data-bar="2"></div>
+      <div class="bar" data-bar="3"></div>
+      <div class="bar" data-bar="4"></div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-panel active" data-step="1">
+      <label for="bizName">Name Ihres Unternehmens</label>
+      <input type="text" id="bizName" placeholder="z.B. Mustermann GmbH">
+
+      <label for="bizCity">Ort / Adresse (wie im Profil eingetragen)</label>
+      <input type="text" id="bizCity" placeholder="z.B. Musterstraße 1, 12345 Musterstadt">
+
+      <label for="suspendedSince">Seit wann ist das Profil gesperrt?</label>
+      <input type="text" id="suspendedSince" placeholder="z.B. seit 3 Tagen / seit 15.07.2026">
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-panel" data-step="2">
+      <label for="reasonSelect">Was, glauben Sie, war der Auslöser? (Falls unklar: "Unbekannt" wählen)</label>
+      <select id="reasonSelect">
+        <option value="nap">Name/Adresse/Telefon stimmen nicht mit anderen Webseiten überein (NAP-Mismatch)</option>
+        <option value="category">Falsche oder irreführende Geschäftskategorie</option>
+        <option value="edit">Ich habe kürzlich Änderungen am Profil vorgenommen (Adresse, Name, Kategorie, Öffnungszeiten)</option>
+        <option value="verification">Verifizierung ist fehlgeschlagen oder steht noch aus</option>
+        <option value="duplicate">Es gibt mehrere Profile für denselben Standort (Duplikat)</option>
+        <option value="sab">Ich bin ein reines Dienstleistungsunternehmen ohne Kundenlaufkundschaft (Service-Area-Business)</option>
+        <option value="unknown">Unbekannt — Google hat keinen klaren Grund genannt</option>
+      </select>
+
+      <label for="googleMsg">Falls vorhanden: Text der Nachricht/Begründung von Google (Copy-Paste)</label>
+      <textarea id="googleMsg" placeholder="z.B. 'Ihr Standort erfüllt nicht unsere Richtlinien für Unternehmensprofile...'"></textarea>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-panel" data-step="3">
+      <label>Welche Nachweise haben Sie bereits zur Hand?</label>
+      <div class="checkbox-grid">
+        <label class="checkbox-row"><input type="checkbox" value="gewerbeschein"> Gewerbeschein / Handelsregisterauszug</label>
+        <label class="checkbox-row"><input type="checkbox" value="rechnungen"> Rechnungen/Belege mit Firmenadresse</label>
+        <label class="checkbox-row"><input type="checkbox" value="fotos"> Fotos vor Ort (Schild, Gebäude, Eingang)</label>
+        <label class="checkbox-row"><input type="checkbox" value="webseite"> Eigene Webseite mit übereinstimmenden Daten</label>
+        <label class="checkbox-row"><input type="checkbox" value="miete"> Mietvertrag / Nebenkostenabrechnung</label>
+        <label class="checkbox-row"><input type="checkbox" value="gsc"> Zugriff auf Google Search Console</label>
+        <label class="checkbox-row"><input type="checkbox" value="referenzen"> Kundenbewertungen / Referenzschreiben</label>
+        <label class="checkbox-row"><input type="checkbox" value="telefon"> Nachweis der Telefonnummer (Rechnung/Vertrag)</label>
+      </div>
+    </div>
+
+    <!-- Step 4: Result -->
+    <div class="step-panel" data-step="4">
+      <div id="resultArea"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="backBtn" style="visibility:hidden;">← Zurück</button>
+      <button class="btn btn-primary" id="nextBtn">Weiter →</button>
+    </div>
+  </div>
+</section>
+
+<section id="preise">
+  <div class="section-title">Preise</div>
+  <div class="section-sub">Die Diagnose ist kostenlos. Für den persönlich geprüften, versandfertigen Einspruch:</div>
+  <div class="pricing">
+    <div class="price-card">
+      <h3>Selbst einreichen</h3>
+      <div class="price">0€</div>
+      <ul>
+        <li>Diagnose Ihres Sperrgrunds</li>
+        <li>Nachweis-Checkliste</li>
+        <li>Einspruchsentwurf zum Selbst-Anpassen</li>
+      </ul>
+      <a href="#tool" class="btn btn-ghost" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">Kostenlos starten</a>
+    </div>
+    <div class="price-card highlight">
+      <span class="badge">Meistgewählt</span>
+      <h3>Geprüft & eingereicht</h3>
+      <div class="price">99€ <small>/ einmalig</small></div>
+      <ul>
+        <li>Alles aus "Selbst einreichen"</li>
+        <li>Persönliche Prüfung Ihres Falls</li>
+        <li>Finale Anpassung des Einspruchstexts</li>
+        <li>Bis zu 2 Nacheinsprüche inklusive</li>
+      </ul>
+      <a href="mailto:ahlersahlersahlers@gmail.com?subject=Geprüfter%20Einspruch%20bestellen" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">Jetzt beauftragen</a>
+    </div>
+    <div class="price-card">
+      <h3>Agentur-Paket</h3>
+      <div class="price">29€ <small>/ Monat</small></div>
+      <ul>
+        <li>Mehrere Kundenprofile verwalten</li>
+        <li>Unbegrenzte Diagnosen & Einsprüche</li>
+        <li>Status-Übersicht aller Fälle</li>
+      </ul>
+      <a href="mailto:ahlersahlersahlers@gmail.com?subject=Interesse%20Agentur-Paket" class="btn btn-ghost" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">Anfragen</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Profilretter — unabhängiges Hilfsangebot, keine Partnerschaft mit oder Beauftragung durch Google.
+  <div class="disclaimer">Wir garantieren keine Wiederherstellung des Profils — die Entscheidung trifft ausschließlich Google. Wir helfen Ihnen, einen vollständigen, gut begründeten Einspruch mit den richtigen Nachweisen einzureichen.</div>
+</footer>
+
+<script>
+(function() {
+  const reasons = {
+    nap: {
+      label: "NAP-Mismatch (Name/Adresse/Telefon uneinheitlich)",
+      diagnosis: "Google gleicht Ihr Profil automatisiert mit anderen Webseiten ab (eigene Website, Branchenverzeichnisse, Social-Media-Profile). Weichen Name, Adresse oder Telefonnummer dort auch nur geringfügig ab (z.B. 'Str.' vs. 'Straße', alte Adresse noch online), stuft das System dies oft fälschlich als Betrugsversuch ein.",
+      required: ["gewerbeschein", "rechnungen", "webseite", "telefon"],
+      letterReason: "aufgrund einer vermuteten Inkonsistenz zwischen den auf meinem Google-Unternehmensprofil hinterlegten Kontaktdaten (Name, Adresse, Telefonnummer) und anderen im Internet auffindbaren Quellen"
+    },
+    category: {
+      label: "Falsche/irreführende Kategorie",
+      diagnosis: "Eine nicht exakt passende oder zu weit gefasste Geschäftskategorie kann automatisierte Prüfsysteme auslösen, insbesondere wenn die gewählte Kategorie häufig für Spam-Profile missbraucht wird.",
+      required: ["gewerbeschein", "webseite", "referenzen"],
+      letterReason: "aufgrund der von Google beanstandeten Geschäftskategorie meines Unternehmensprofils"
+    },
+    edit: {
+      label: "Kürzliche Profil-Änderung als Auslöser",
+      diagnosis: "Änderungen an sicherheitsrelevanten Feldern (Adresse, Name, Kategorie) lösen bei Google-Business-Profilen eine automatische Neuprüfung aus. Bei mehreren Änderungen in kurzer Zeit wird das Profil oft vorsorglich gesperrt, bis die Änderung manuell bestätigt ist.",
+      required: ["gewerbeschein", "rechnungen", "fotos", "webseite"],
+      letterReason: "im Zusammenhang mit einer kürzlich von mir vorgenommenen, wahrheitsgemäßen Aktualisierung meines Unternehmensprofils"
+    },
+    verification: {
+      label: "Verifizierung fehlgeschlagen/ausstehend",
+      diagnosis: "Ohne abgeschlossene Verifizierung (Postkarte, Anruf, Video) bleibt ein Profil im eingeschränkten Zustand oder wird nach einer Frist automatisch gesperrt. Häufigste Ursache: Verifizierungscode nicht eingegeben oder Frist verpasst.",
+      required: ["gewerbeschein", "telefon", "fotos"],
+      letterReason: "im Zusammenhang mit dem noch nicht abgeschlossenen bzw. fehlgeschlagenen Verifizierungsprozess meines Unternehmensprofils"
+    },
+    duplicate: {
+      label: "Duplikat-Eintrag",
+      diagnosis: "Existieren mehrere Profile für denselben Standort (z.B. durch einen alten, vom Vorbesitzer angelegten Eintrag oder eine versehentliche Doppelanlage), sperrt Google häufig eines oder beide Profile automatisch, bis die Dopplung aufgelöst ist.",
+      required: ["gewerbeschein", "rechnungen", "fotos"],
+      letterReason: "aufgrund eines vermuteten Duplikat-Eintrags für denselben Geschäftsstandort"
+    },
+    sab: {
+      label: "Service-Area-Business ohne Kundenlaufkundschaft",
+      diagnosis: "Unternehmen ohne für Laufkundschaft zugänglichen Standort (reine Dienstleister vor Ort beim Kunden) müssen ihre Adresse als 'nicht öffentlich sichtbar' markieren. Ist das nicht korrekt eingestellt, wertet Google das physische Vorhandensein eines Ladengeschäfts fälschlich als nicht gegeben.",
+      required: ["gewerbeschein", "rechnungen", "miete"],
+      letterReason: "aufgrund einer vermuteten Fehleinschätzung meines Geschäftsmodells als reines Dienstleistungsunternehmen ohne festen Kundenverkehr (Service-Area-Business)"
+    },
+    unknown: {
+      label: "Unbekannter Sperrgrund",
+      diagnosis: "Ohne konkrete Begründung von Google ist eine pauschale, aber vollständige Nachweislage der wirksamste Ansatz: Der Einspruch listet alle verfügbaren Belege auf, die die Legitimität und den physischen Bestand des Unternehmens zweifelsfrei untermauern.",
+      required: ["gewerbeschein", "rechnungen", "fotos", "webseite"],
+      letterReason: "ohne dass mir ein konkreter, nachvollziehbarer Sperrgrund mitgeteilt wurde"
+    }
+  };
+
+  const evidenceLabels = {
+    gewerbeschein: "Gewerbeschein / Handelsregisterauszug",
+    rechnungen: "Rechnungen/Belege mit Firmenadresse",
+    fotos: "Fotos vor Ort (Schild, Gebäude, Eingang)",
+    webseite: "Eigene Webseite mit übereinstimmenden Daten",
+    miete: "Mietvertrag / Nebenkostenabrechnung",
+    gsc: "Zugriff auf Google Search Console",
+    referenzen: "Kundenbewertungen / Referenzschreiben",
+    telefon: "Nachweis der Telefonnummer (Rechnung/Vertrag)"
+  };
+
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  function updateBars() {
+    document.querySelectorAll('.bar').forEach(bar => {
+      bar.classList.toggle('active', parseInt(bar.dataset.bar) <= currentStep);
+    });
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step-panel').forEach(p => {
+      p.classList.toggle('active', parseInt(p.dataset.step) === n);
+    });
+    document.getElementById('backBtn').style.visibility = n === 1 ? 'hidden' : 'visible';
+    document.getElementById('nextBtn').textContent = n === totalSteps ? 'Neu starten' : (n === 3 ? 'Diagnose erstellen →' : 'Weiter →');
+    updateBars();
+  }
+
+  function generateResult() {
+    const bizName = document.getElementById('bizName').value || 'Ihr Unternehmen';
+    const bizCity = document.getElementById('bizCity').value || '[Adresse einfügen]';
+    const suspendedSince = document.getElementById('suspendedSince').value || '[Datum einfügen]';
+    const reasonKey = document.getElementById('reasonSelect').value;
+    const reason = reasons[reasonKey];
+    const haveEvidence = Array.from(document.querySelectorAll('.checkbox-row input:checked')).map(cb => cb.value);
+    const missing = reason.required.filter(r => !haveEvidence.includes(r));
+
+    let evidenceListText = reason.required.map(r =>
+      haveEvidence.includes(r) ? `✓ ${evidenceLabels[r]} (vorhanden)` : `✗ ${evidenceLabels[r]} (noch besorgen)`
+    ).join('\n');
+
+    const letter = `Betreff: Einspruch gegen die Sperrung meines Google-Unternehmensprofils — ${bizName}
+
+Sehr geehrtes Google-Support-Team,
+
+hiermit lege ich Einspruch gegen die Sperrung meines Google-Unternehmensprofils für "${bizName}" (${bizCity}) ein, welche ${suspendedSince} erfolgte, ${reason.letterReason}.
+
+${bizName} ist ein aktives, ordnungsgemäß angemeldetes Unternehmen. Zur Bestätigung reiche ich folgende Nachweise ein bzw. stehe zur Verfügung, diese kurzfristig nachzureichen:
+
+${evidenceListText}
+
+Ich bitte um eine erneute, sorgfältige Prüfung meines Profils sowie um eine konkrete Rückmeldung, falls weitere Unterlagen benötigt werden. Für Rückfragen stehe ich jederzeit zur Verfügung.
+
+Mit freundlichen Grüßen
+${bizName}`;
+
+    const missingHtml = missing.length
+      ? `<p class="missing-evidence">Noch fehlend: ${missing.map(m => evidenceLabels[m]).join(', ')}</p>`
+      : `<p class="have-evidence">Alle für diesen Fall wichtigen Nachweise sind vorhanden.</p>`;
+
+    document.getElementById('resultArea').innerHTML = `
+      <div class="result-box">
+        <h4>Diagnose: ${reason.label}</h4>
+        <p>${reason.diagnosis}</p>
+        ${missingHtml}
+      </div>
+      <div class="result-box">
+        <h4>Ihr Einspruchsentwurf</h4>
+        <textarea id="appealLetter" readonly>${letter}</textarea>
+        <div class="copy-row">
+          <button class="btn btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('appealLetter').value); this.textContent='Kopiert ✓';">In Zwischenablage kopieren</button>
+          <a href="mailto:ahlersahlersahlers@gmail.com?subject=Bitte%20um%20geprüften%20Einspruch%20-%20${encodeURIComponent(bizName)}&body=${encodeURIComponent('Bitte um persönliche Prüfung meines Einspruchs. Diagnose: ' + reason.label)}" class="btn btn-ghost" style="text-decoration:none;">Stattdessen persönlich prüfen lassen (99€)</a>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentStep === totalSteps) {
+      currentStep = 1;
+      showStep(currentStep);
+      return;
+    }
+    if (currentStep === 3) {
+      generateResult();
+    }
+    currentStep = Math.min(currentStep + 1, totalSteps);
+    showStep(currentStep);
+  });
+
+  document.getElementById('backBtn').addEventListener('click', () => {
+    currentStep = Math.max(currentStep - 1, 1);
+    showStep(currentStep);
+  });
+
+  showStep(currentStep);
+})();
+</script>
+
+</body>
+</html>
