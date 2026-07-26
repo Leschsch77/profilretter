@@ -26,8 +26,14 @@ jobs:
         run: |
           PROBLEME=""
           for URL in https://profilretter.de https://ausschreibungsradar.de; do
-            # ohne -k: ein ungueltiges Zertifikat laesst curl scheitern
-            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$URL" || echo "SSL-FEHLER")
+            # ohne -k: ein ungueltiges Zertifikat laesst curl scheitern.
+            # Exit-Code getrennt auswerten, sonst haengen "000" und der
+            # Fallback-Text aneinander und die Meldung wird unleserlich.
+            if CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$URL"); then
+              :
+            else
+              CODE="SSL-FEHLER"
+            fi
             if [ "$CODE" = "200" ]; then
               echo "OK     $URL"
             else
