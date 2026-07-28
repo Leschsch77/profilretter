@@ -261,6 +261,19 @@
     font-size: 0.8rem;
     color: #94a3b8;
   }
+  .rechtliches {
+    margin-top: 14px;
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .rechtliches a {
+    color: var(--muted);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .rechtliches a:hover { color: var(--blue); }
 </style>
 </head>
 <body>
@@ -459,6 +472,10 @@
 
 <footer>
   Profilretter — unabhängiges Hilfsangebot, keine Partnerschaft mit oder Beauftragung durch Google.
+  <div class="rechtliches">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+  </div>
   <div class="disclaimer">Wir garantieren keine Wiederherstellung des Profils — die Entscheidung trifft ausschließlich Google. Wir helfen Ihnen, einen vollständigen, gut begründeten Einspruch mit den richtigen Nachweisen einzureichen.</div>
 </footer>
 
