@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertrag kündigen — Profilretter</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--tief:#1e3a8a;--mittel:#1a56db;--bg:#f8fafc;--ink:#0f172a;--grau:#475569;--rand:#e2e8f0;--gruen:#16a34a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink);line-height:1.7}
+  header{background:linear-gradient(135deg,var(--tief),var(--mittel));color:#fff;padding:16px 0}
+  .huelle{max-width:680px;margin:0 auto;padding:0 20px}
+  .logo{font-weight:800;font-size:1.25rem}
+  .logo a{color:#fff;text-decoration:none}
+  main{padding:40px 0 60px}
+  h1{font-size:1.8rem;margin-bottom:8px}
+  h2{font-size:1.05rem;margin:24px 0 8px}
+  p{margin-bottom:12px}
+  .stand{color:var(--grau);font-size:.9rem;margin-bottom:24px}
+  .karte{background:#fff;border:1px solid var(--rand);border-radius:12px;padding:26px;margin-bottom:18px}
+  .gut{background:#f0fdf6;border:1px solid #b9e6cf;border-left:4px solid var(--gruen);
+       border-radius:10px;padding:18px 20px;margin-bottom:22px;font-size:.95rem}
+  label{display:block;font-weight:600;margin:16px 0 6px;font-size:.95rem}
+  input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--rand);border-radius:9px;
+       font-size:.95rem;font-family:inherit;background:#fff}
+  textarea{resize:vertical;min-height:80px}
+  fieldset{border:1px solid var(--rand);border-radius:9px;padding:14px 16px;margin-top:16px}
+  legend{font-weight:600;font-size:.95rem;padding:0 6px}
+  .radio{display:flex;align-items:flex-start;gap:9px;margin:8px 0;font-size:.95rem;font-weight:400}
+  .radio input{width:auto;margin-top:4px}
+  .knopf{display:block;width:100%;margin-top:22px;padding:15px;border:none;border-radius:10px;
+       background:var(--mittel);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;
+       text-align:center;text-decoration:none}
+  .knopf:disabled{background:#a8bccd;cursor:not-allowed}
+  .knopf.zweit{background:transparent;color:var(--mittel);border:1px solid var(--rand);
+       font-size:.95rem;padding:12px;margin-top:10px}
+  .fehler{color:#b3261e;font-size:.9rem;margin-top:10px;display:none}
+  .erfolg{background:#f0fdf6;border:1px solid #b9e6cf;border-radius:10px;padding:18px 20px;
+       margin-top:18px;display:none;font-size:.95rem}
+  a{color:var(--mittel)}
+  .zurueck{display:inline-block;margin-top:24px;color:var(--mittel);text-decoration:none;font-weight:600}
+  .hinweis{font-size:.85rem;color:var(--grau);border-left:3px solid var(--rand);padding-left:14px;margin-top:20px}
+</style>
+</head>
+<body>
+<header><div class="huelle"><div class="logo"><a href="index.html">Profilretter</a></div></div></header>
+<main class="huelle">
+  <h1>Vertrag kündigen</h1>
+  <p class="stand">Kündigungsschaltfläche nach § 312k BGB</p>
+
+  <div class="gut">
+    <strong>Ohne Wenn und Aber.</strong> Das Agentur-Paket können Sie jederzeit zum Ende des laufenden
+    Monats kündigen. Es gibt keine Mindestlaufzeit, Sie müssen keinen Grund angeben und niemand ruft
+    Sie an, um Sie umzustimmen. Eine formlose E-Mail genügt uns ebenfalls — dieses Formular ist nur
+    der bequemere Weg. Der einmalige geprüfte Einspruch (99 €) ist kein laufender Vertrag und muss
+    daher nicht gekündigt werden.
+  </div>
+
+  <div class="karte">
+    <form id="f" novalidate>
+      <fieldset>
+        <legend>Art der Kündigung</legend>
+        <label class="radio"><input type="radio" name="art" value="ordentlich" checked>
+          <span>Ordentliche Kündigung zum nächstmöglichen Zeitpunkt</span></label>
+        <label class="radio"><input type="radio" name="art" value="ausserordentlich">
+          <span>Außerordentliche Kündigung aus wichtigem Grund</span></label>
+      </fieldset>
+
+      <div id="grundFeld" style="display:none">
+        <label for="grund">Wichtiger Grund</label>
+        <textarea id="grund" placeholder="Bitte kurz beschreiben"></textarea>
+      </div>
+
+      <label for="vertrag">Welchen Vertrag möchten Sie kündigen?</label>
+      <select id="vertrag">
+        <option>Agentur-Paket (29 € / Monat)</option>
+        <option>Weiß ich nicht genau</option>
+      </select>
+
+      <label for="zeitpunkt">Zu welchem Zeitpunkt soll gekündigt werden?</label>
+      <select id="zeitpunkt">
+        <option>Zum nächstmöglichen Zeitpunkt</option>
+        <option>Zu einem bestimmten Datum (bitte unten angeben)</option>
+      </select>
+      <input type="text" id="datum" placeholder="z. B. 31.12.2026" style="margin-top:8px">
+
+      <label for="name">Ihr Name <span style="font-weight:400;color:var(--grau)">(Pflichtfeld)</span></label>
+      <input type="text" id="name" placeholder="Vor- und Nachname">
+
+      <label for="firma">Betrieb <span style="font-weight:400;color:var(--grau)">(falls vorhanden)</span></label>
+      <input type="text" id="firma">
+
+      <label for="email">E-Mail-Adresse Ihrer Buchung <span style="font-weight:400;color:var(--grau)">(Pflichtfeld)</span></label>
+      <input type="text" id="email" placeholder="Die Adresse, über die Sie gebucht haben">
+
+      <label for="bestaetigung">Wohin sollen wir die Bestätigung schicken?</label>
+      <input type="text" id="bestaetigung" placeholder="Nur ausfüllen, wenn abweichend">
+
+      <button type="button" class="knopf" id="senden">Jetzt kündigen</button>
+      <p class="fehler" id="fehler"></p>
+      <button type="button" class="knopf zweit" id="speichern">Kündigung als Textdatei speichern</button>
+      <p style="font-size:.82rem;color:var(--grau);margin-top:10px">
+        „Jetzt kündigen“ öffnet Ihr E-Mail-Programm mit der fertigen Kündigung — Sie müssen sie nur
+        noch absenden. Für Ihre Unterlagen können Sie die Erklärung zusätzlich mit Datum und Uhrzeit
+        speichern.
+      </p>
+      <div class="erfolg" id="erfolg">
+        <strong>Ihre Kündigung ist vorbereitet.</strong> Bitte senden Sie die geöffnete E-Mail ab —
+        erst dann ist die Kündigung bei uns eingegangen. Wir bestätigen Ihnen Zugang und
+        Beendigungszeitpunkt in Textform.
+      </div>
+    </form>
+  </div>
+
+  <div class="karte">
+    <h2>Lieber auf anderem Weg?</h2>
+    <p>
+      Eine formlose E-Mail an
+      <a href="mailto:ahlersahlersahlers@gmail.com">ahlersahlersahlers@gmail.com</a> oder ein Brief an
+      Dieter Ahlers, Hauptstraße 29, 23769 Fehmarn genügt genauso. Maßgeblich ist der Zugang bei uns,
+      nicht die Form.
+    </p>
+  </div>
+
+  <p class="hinweis">
+    Einzelheiten zu Laufzeit und Kündigung finden Sie in <a href="agb.html">§ 8 unserer AGB</a>.
+    Verbraucher haben zusätzlich ein <a href="widerruf.html">Widerrufsrecht</a>.
+  </p>
+
+  <a class="zurueck" href="index.html">← Zurück zur Startseite</a>
+</main>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+
+  document.querySelectorAll('input[name=art]').forEach(function(r){
+    r.addEventListener('change', function(){
+      $('grundFeld').style.display = ($('grund') && document.querySelector('input[name=art]:checked').value === 'ausserordentlich') ? 'block' : 'none';
+    });
+  });
+
+  function erklaerung(){
+    var art = document.querySelector('input[name=art]:checked').value;
+    var jetzt = new Date();
+    var stempel = jetzt.toLocaleString('de-DE', { dateStyle: 'long', timeStyle: 'short' });
+    var zeit = $('zeitpunkt').value;
+    if (zeit.indexOf('bestimmten') > -1 && $('datum').value.trim()) zeit = 'Zum ' + $('datum').value.trim();
+    var z = [];
+    z.push('Kündigung');
+    z.push('');
+    z.push('An: Dieter Ahlers, Hauptstraße 29, 23769 Fehmarn');
+    z.push('');
+    z.push('Hiermit kündige ich den mit Ihnen geschlossenen Vertrag.');
+    z.push('');
+    z.push('Art der Kündigung: ' + (art === 'ordentlich' ? 'Ordentliche Kündigung' : 'Außerordentliche Kündigung aus wichtigem Grund'));
+    if (art === 'ausserordentlich' && $('grund').value.trim()) z.push('Wichtiger Grund: ' + $('grund').value.trim());
+    z.push('Vertrag: ' + $('vertrag').value);
+    z.push('Kündigung zum: ' + zeit);
+    z.push('');
+    z.push('Name: ' + $('name').value.trim());
+    if ($('firma').value.trim()) z.push('Betrieb: ' + $('firma').value.trim());
+    z.push('E-Mail der Buchung: ' + $('email').value.trim());
+    if ($('bestaetigung').value.trim()) z.push('Bestätigung bitte an: ' + $('bestaetigung').value.trim());
+    z.push('');
+    z.push('Erklärung erstellt am ' + stempel + ' über profilretter.de/kuendigung.html');
+    return z.join('\n');
+  }
+
+  function pruefe(){
+    if (!$('name').value.trim() || !$('email').value.trim()) {
+      $('fehler').textContent = 'Bitte geben Sie mindestens Ihren Namen und die E-Mail-Adresse Ihrer Buchung an, damit wir den Vertrag zuordnen können.';
+      $('fehler').style.display = 'block';
+      return false;
+    }
+    $('fehler').style.display = 'none';
+    return true;
+  }
+
+  $('senden').addEventListener('click', function(){
+    if (!pruefe()) return;
+    var betreff = 'Kündigung Profilretter - ' + ($('name').value.trim());
+    window.location.href = 'mailto:ahlersahlersahlers@gmail.com?subject=' +
+      encodeURIComponent(betreff) + '&body=' + encodeURIComponent(erklaerung());
+    $('erfolg').style.display = 'block';
+  });
+
+  $('speichern').addEventListener('click', function(){
+    if (!pruefe()) return;
+    var blob = new Blob([erklaerung()], { type: 'text/plain;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Kuendigung-Profilretter.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  });
+})();
+</script>
+</body>
+</html>
