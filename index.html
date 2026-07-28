@@ -466,6 +466,11 @@
 
       <p style="font-size:0.9rem; color:var(--muted);">Nach der Zahlung kurz Firmenname + Zahlungsart per Mail bestätigen, dann bearbeiten wir Ihren Fall:</p>
       <a id="paymentConfirmLink" href="#" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none;">Zahlung bestätigen</a>
+      <p style="font-size:0.8rem; color:#94a3b8; margin-top:14px;">
+        Damit wir sofort loslegen dürfen, enthält die Mail zwei vorbereitete Sätze zum Verzicht auf die
+        Wartezeit. Möchten Sie lieber die volle Widerrufsfrist behalten, löschen Sie diese einfach —
+        Näheres in der <a href="widerruf.html">Widerrufsbelehrung</a>.
+      </p>
     </div>
   </div>
 </section>
@@ -475,6 +480,7 @@
   <div class="rechtliches">
     <a href="impressum.html">Impressum</a>
     <a href="datenschutz.html">Datenschutzerklärung</a>
+    <a href="widerruf.html">Widerrufsbelehrung</a>
   </div>
   <div class="disclaimer">Wir garantieren keine Wiederherstellung des Profils — die Entscheidung trifft ausschließlich Google. Wir helfen Ihnen, einen vollständigen, gut begründeten Einspruch mit den richtigen Nachweisen einzureichen.</div>
 </footer>
@@ -611,7 +617,20 @@ ${bizName}`;
     document.getElementById('paymentAmount').textContent = isSingle ? '99€ einmalig' : '29€ / Monat';
     document.getElementById('paymentRef').textContent = `Profilretter – ${name}`;
     const subject = isSingle ? 'Zahlung%20bestätigt%20-%20Geprüfter%20Einspruch' : 'Zahlung%20bestätigt%20-%20Agentur-Paket';
-    const body = encodeURIComponent(`Firmenname: ${name}\nGewählt: ${isSingle ? 'Geprüfter Einspruch (99€)' : 'Agentur-Paket (29€/Monat)'}\nZahlungsart: [PayPal / Überweisung]\n`);
+    // Die beiden Saetze am Ende sind kein Beiwerk: § 356 Abs. 4 BGB laesst das
+    // Widerrufsrecht nur dann vorzeitig erloeschen, wenn der Kunde dem sofortigen
+    // Beginn ausdruecklich zustimmt UND bestaetigt, dass er es dadurch verliert.
+    // Ohne diese Erklaerung koennte er den fertigen Einspruch annehmen und
+    // danach binnen 14 Tagen kostenfrei widerrufen.
+    const body = encodeURIComponent(
+      `Firmenname: ${name}\n` +
+      `Gewählt: ${isSingle ? 'Geprüfter Einspruch (99€)' : 'Agentur-Paket (29€/Monat)'}\n` +
+      `Zahlungsart: [PayPal / Überweisung]\n\n` +
+      `--- Bitte stehen lassen, wenn Sie sofort loslegen möchten ---\n` +
+      `Ich verlange ausdrücklich, dass Sie vor Ablauf der Widerrufsfrist mit der Leistung beginnen.\n` +
+      `Mir ist bekannt, dass ich mein Widerrufsrecht mit vollständiger Erbringung der Leistung verliere.\n\n` +
+      `(Wenn Sie das nicht möchten, löschen Sie diese beiden Zeilen einfach — wir warten dann die 14 Tage ab.)\n`
+    );
     document.getElementById('paymentConfirmLink').href = `mailto:ahlersahlersahlers@gmail.com?subject=${subject}&body=${body}`;
     document.getElementById('paymentModal').style.display = 'flex';
   };
