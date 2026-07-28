@@ -465,7 +465,8 @@
       </div>
 
       <p style="font-size:0.9rem; color:var(--muted);">Nach der Zahlung kurz Firmenname + Zahlungsart per Mail bestätigen, dann bearbeiten wir Ihren Fall:</p>
-      <a id="paymentConfirmLink" href="#" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none;">Zahlung bestätigen</a>
+      <p id="pflichtInfo" style="font-size:0.8rem; color:#5a6b7a; margin:0 0 10px;"></p>
+      <a id="paymentConfirmLink" href="#" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none;">Zahlungspflichtig bestellen</a>
       <p style="font-size:0.8rem; color:#94a3b8; margin-top:14px;">
         Damit wir sofort loslegen dürfen, enthält die Mail zwei vorbereitete Sätze zum Verzicht auf die
         Wartezeit. Möchten Sie lieber die volle Widerrufsfrist behalten, löschen Sie diese einfach —
@@ -621,6 +622,9 @@ ${bizName}`;
     document.getElementById('paymentTitle').textContent = isSingle ? 'Geprüft & eingereicht' : 'Agentur-Paket';
     document.getElementById('paymentAmount').textContent = isSingle ? '99€ einmalig' : '29€ / Monat';
     document.getElementById('paymentRef').textContent = `Profilretter – ${name}`;
+    document.getElementById('pflichtInfo').textContent = isSingle
+      ? 'Gesamtpreis 99 € einmalig · einmalige Leistung, keine Laufzeit · Kleinunternehmer, keine Umsatzsteuer.'
+      : 'Gesamtpreis 29 € pro Monat · Laufzeit unbestimmt, verlängert sich monatlich · jederzeit zum Monatsende formlos per E-Mail kündbar · keine Mindestlaufzeit · Kleinunternehmer, keine Umsatzsteuer.';
     const subject = isSingle ? 'Zahlung%20bestätigt%20-%20Geprüfter%20Einspruch' : 'Zahlung%20bestätigt%20-%20Agentur-Paket';
     // Die beiden Saetze am Ende sind kein Beiwerk: § 356 Abs. 4 BGB laesst das
     // Widerrufsrecht nur dann vorzeitig erloeschen, wenn der Kunde dem sofortigen
